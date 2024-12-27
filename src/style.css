@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  font-size: 16pt;
+  background-color: #202020; /* Added for better visuals */
+  color: #fff;
+}
+
+#c {
+  display: block; /* To ensure it takes up full width/height */
+  width: 100vw; /* Full window width */
+  height: 100vh; /* Full window height */
+}

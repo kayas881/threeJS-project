@@ -1,6 +1,6 @@
-import * as THREE from '../node_modules/three/build/three.module.js';
-
-
+import * as THREE from 'three';
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 
 function main() {
   const canvas = document.querySelector('#c');
@@ -15,7 +15,7 @@ function main() {
   camera.position.z = 120;
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xAAAAAA);
+  scene.background = new THREE.Color(0xaaaaaa);
 
   const objects = [];
   const spread = 15;
@@ -73,12 +73,11 @@ function main() {
   addSolidGeometry(2, 2, polyhedronGeometry);
 
   const size = 8;
-const widthSegments = 2;
-const heightSegments = 2;
-const depthSegments = 2;
-const boxGeometry = new THREE.BoxGeometry(size, size, size, widthSegments, heightSegments, depthSegments);
-addSolidGeometry(-2, 2, boxGeometry);
-
+  const widthSegments = 2;
+  const heightSegments = 2;
+  const depthSegments = 2;
+  const boxGeometry = new THREE.BoxGeometry(size, size, size, widthSegments, heightSegments, depthSegments);
+  addSolidGeometry(-2, 2, boxGeometry);
 
   // Add a light
   const color = 0xffffff;
@@ -86,6 +85,23 @@ addSolidGeometry(-2, 2, boxGeometry);
   const light = new THREE.DirectionalLight(color, intensity);
   light.position.set(-1, 2, 4);
   scene.add(light);
+
+  // Load and add text
+  const loader = new FontLoader();
+  loader.load('https://cdn.jsdelivr.net/npm/three@0.158.0/examples/fonts/helvetiker_regular.typeface.json', function (font) {
+    const textGeometry = new TextGeometry('Hello Three.js!', {
+      font: font,
+      size: 5,
+      height: 1,
+      curveSegments: 12,
+      bevelEnabled: true,
+      bevelThickness: 0.1,
+      bevelSize: 0.1,
+      bevelOffset: 0,
+      bevelSegments: 5,
+    });
+    addSolidGeometry(0, 0, textGeometry);
+  });
 
   // Render function
   function render(time) {
